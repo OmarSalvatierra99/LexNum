@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LexNum · Conversor Numérico Institucional</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="header-fixed">
+    <div class="header-content">
+      <img src="{{ url_for('static', filename='img/ofs_logo.png') }}" alt="Logo OFS" class="ofs-logo">
+      <div class="header-text">
+        <h1>LexNum</h1>
+        <p>Conversor Numérico Institucional · OFS Tlaxcala</p>
+      </div>
+    </div>
+  </header>
+
+  <main class="main-content">
+    <section class="tool-card">
+      <h2>Conversión en tiempo real</h2>
+      <p>Escribe un número para ver su versión en texto con formato oficial.</p>
+
+      <input type="number" id="numero" placeholder="Ejemplo: 1523.45" oninput="convertirNumero()">
+      <p id="resultadoTexto" style="margin-top:1rem; font-weight:600; color:#1e3a8a;"></p>
+
+      <hr style="margin:2rem 0; border:none; border-top:1px solid #e5e7eb;">
+
+      <h2>O cargar archivo Excel</h2>
+      <p>Se acepta columna: <strong>Número, Numero, numero, NUMERO, Num, num</strong>.</p>
+
+      <form id="excelForm" enctype="multipart/form-data">
+        <input type="file" name="archivo" accept=".xlsx" required>
+        <button type="submit">Procesar y descargar</button>
+      </form>
+
+      <p id="statusMessage" style="margin-top:1rem;"></p>
+    </section>
+  </main>
+
+  <footer class="dashboard-footer">
+    © Órgano de Fiscalización Superior del Estado de Tlaxcala — Sistema LexNum
+  </footer>
+
+  <script>
+    async function convertirNumero() {
+      const numero = document.getElementById("numero").value.trim();
+      const out = document.getElementById("resultadoTexto");
+      out.textContent = "";
+
+      if (!numero) return;
+
+      try {
+        const r = await fetch("/convertir_texto", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ numero })
+        });
+        const data = await r.json();
+        out.textContent = data.texto || "Error al convertir.";
+      } catch {
+        out.textContent = "Error de conexión.";
+      }
+    }
+
+    document.getElementById("excelForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const status = document.getElementById("statusMessage");
+      status.textContent = "Procesando…";
+
+      try {
+        const fd = new FormData(e.target);
+        const resp = await fetch("/convertir_excel", { method: "POST", body: fd });
+        const ctype = resp.headers.get("Content-Type") || "";
+
+        if (!resp.ok) {
+          if (ctype.includes("application/json")) {
+            const data = await resp.json();
+            status.textContent = data.error || "Error al procesar.";
+          } else {
+            status.textContent = "Error al procesar.";
+          }
+          return;
+        }
+
+        const blob = await resp.blob();
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "resultado_lexnum.xlsx";
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        URL.revokeObjectURL(url);
+        status.textContent = "Archivo generado y descargado.";
+      } catch {
+        status.textContent = "Error de red.";
+      }
+    });
+  </script>
+</body>
+</html>
+

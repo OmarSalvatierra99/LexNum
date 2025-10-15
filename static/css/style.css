@@ -1,0 +1,312 @@
+/* =========================================================
+   LEXNUM - OFS TLAXCALA
+   Estilo institucional moderno, limpio y responsivo
+   ========================================================= */
+
+:root {
+  --color-primary: #1e3a8a;
+  --color-primary-light: #2563eb;
+  --color-accent: #3b82f6;
+  --color-success: #16a34a;
+  --color-bg: #f3f4f6;
+  --color-surface: #ffffff;
+  --color-text: #0f172a;
+  --color-muted: #64748b;
+  --color-border: #e5e7eb;
+  --radius: 12px;
+  --shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  --transition: all 0.25s ease;
+  --header-height: 80px;
+  --font-sans: "Inter", "Segoe UI", Roboto, sans-serif;
+}
+
+/* ===== RESET ===== */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background: linear-gradient(180deg, #f9fafb 0%, #eef2ff 100%);
+  color: var(--color-text);
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  padding-top: var(--header-height);
+}
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+.header-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  max-width: 1200px;
+  width: 100%;
+  justify-content: center;
+  padding: 0 1rem;
+}
+
+.ofs-logo {
+  height: 54px;
+  width: auto;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+.ofs-logo:hover {
+  transform: scale(1.06);
+}
+
+.header-text h1 {
+  font-size: 1.8rem;
+  color: var(--color-primary);
+  font-weight: 800;
+  letter-spacing: -0.5px;
+}
+
+.header-text p {
+  font-size: 0.95rem;
+  color: var(--color-muted);
+}
+
+/* =========================================================
+   MAIN
+   ========================================================= */
+.main-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  padding: 3.5rem 1rem;
+}
+
+.tool-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 3rem 2.5rem;
+  text-align: center;
+  max-width: 560px;
+  width: 100%;
+  transition: var(--transition);
+  animation: fadeInUp 0.4s ease;
+}
+
+.tool-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tool-card h2 {
+  color: var(--color-primary);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.tool-card p {
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+/* =========================================================
+   INPUT NUMÉRICO
+   ========================================================= */
+input[type="number"] {
+  width: 100%;
+  max-width: 340px;
+  padding: 0.9rem 1rem;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius);
+  font-size: 1rem;
+  text-align: center;
+  outline: none;
+  transition: var(--transition);
+  background: var(--color-bg);
+}
+
+input[type="number"]:focus {
+  border-color: var(--color-accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+  background: #fff;
+}
+
+/* =========================================================
+   INPUT FILE
+   ========================================================= */
+input[type="file"] {
+  width: 100%;
+  max-width: 340px;
+  padding: 1rem;
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius);
+  background: var(--color-bg);
+  color: var(--color-muted);
+  font-size: 0.95rem;
+  text-align: center;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+input[type="file"]:hover {
+  border-color: var(--color-accent);
+  background: rgba(37, 99, 235, 0.05);
+  color: var(--color-text);
+}
+
+input[type="file"]::file-selector-button {
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-right: 1rem;
+}
+
+input[type="file"]::file-selector-button:hover {
+  background: var(--color-primary);
+}
+
+/* =========================================================
+   BOTONES
+   ========================================================= */
+button {
+  background: var(--color-primary-light);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 1rem 2rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  box-shadow: var(--shadow);
+  font-size: 1rem;
+}
+
+button:hover {
+  background: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   BOTÓN COPIAR TEXTO
+   ========================================================= */
+#copiarBtn {
+  background: var(--color-accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0.6rem 1.4rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: var(--transition);
+  margin-top: 0.5rem;
+  box-shadow: var(--shadow);
+}
+
+#copiarBtn:hover {
+  background: var(--color-primary);
+  transform: translateY(-2px);
+}
+
+/* =========================================================
+   RESULTADO EN TIEMPO REAL
+   ========================================================= */
+#resultadoTexto {
+  font-size: 1.05rem;
+  color: var(--color-primary);
+  background: rgba(37, 99, 235, 0.08);
+  padding: 1rem;
+  border-radius: var(--radius);
+  margin-top: 1rem;
+  max-width: 420px;
+  margin-inline: auto;
+  transition: var(--transition);
+  word-wrap: break-word;
+  min-height: 1.5em;
+}
+
+#copiadoMsg {
+  color: var(--color-success);
+  font-weight: 600;
+  font-size: 0.95rem;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.dashboard-footer {
+  text-align: center;
+  padding: 1rem;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-border);
+  color: var(--color-muted);
+  font-size: 0.85rem;
+  box-shadow: var(--shadow);
+}
+
+/* =========================================================
+   RESPONSIVE
+   ========================================================= */
+@media (max-width: 768px) {
+  .header-text h1 {
+    font-size: 1.4rem;
+  }
+
+  .tool-card {
+    padding: 2rem 1.2rem;
+  }
+
+  input[type="file"],
+  input[type="number"],
+  button {
+    width: 100%;
+  }
+
+  #resultadoTexto {
+    font-size: 1rem;
+  }
+}
+

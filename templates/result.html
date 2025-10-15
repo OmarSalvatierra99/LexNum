@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>LexNum - Resultado</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+  <header class="dashboard-header">
+    <img src="{{ url_for('static', filename='img/ofs_logo.png') }}" alt="Logo OFS" class="ofs-logo" width="100">
+    <h1>Conversión completada</h1>
+  </header>
+
+  <section class="tool-output">
+    <p>El archivo se ha procesado correctamente.</p>
+    <a href="/descargar" class="btn-download">Descargar resultado</a>
+  </section>
+
+  <footer class="dashboard-footer">
+    Sistema Oficial del Órgano de Fiscalización Superior
+  </footer>
+</body>
+</html>
+

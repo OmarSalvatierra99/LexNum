@@ -1,0 +1,75 @@
+# ========================================
+# PYTHON / FLASK PROJECT IGNORE FILE
+# ========================================
+
+# Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# Flask instance and config
+instance/
+*.db
+*.sqlite
+*.sqlite3
+config.py
+settings.py
+
+# Environment variables
+.env
+.env.*
+*.env
+
+# Logs
+*.log
+*.out
+*.err
+
+# Cache and compiled files
+*.cache
+*.pid
+*.bak
+*.swp
+*.tmp
+*.temp
+.cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# OS / IDE files
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.iml
+
+# Uploads and generated files
+uploads/
+*.xlsx
+*.xls
+*.csv
+*.zip
+*.pdf
+
+# Node/npm (if frontend tools are added)
+node_modules/
+package-lock.json
+
+# Build artifacts
+dist/
+build/
+__pypackages__/
+.eggs/
+*.egg-info/
+*.egg
+
+# Backup or generated HTML/CSS/JS
+*.min.js
+*.min.css
+
