@@ -6,18 +6,28 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-  <header class="dashboard-header">
-    <img src="{{ url_for('static', filename='img/ofs_logo.png') }}" alt="Logo OFS" class="ofs-logo" width="100">
-    <h1>Conversión completada</h1>
+  <header class="header-fixed">
+    <div class="header-content">
+      <img src="{{ url_for('static', filename='img/ofs_logo.png') }}" alt="Logo OFS" class="ofs-logo">
+      <div class="header-text">
+        <h1>Conversión completada</h1>
+        <p>LexNum · Sistema Institucional</p>
+      </div>
+    </div>
   </header>
 
-  <section class="tool-output">
-    <p>El archivo se ha procesado correctamente.</p>
-    <a href="/descargar" class="btn-download">Descargar resultado</a>
-  </section>
+  <main class="main-content">
+    <section class="tool-card">
+      <h2>Archivo procesado con éxito</h2>
+      <p>El archivo se ha convertido correctamente y está listo para descargar.</p>
+      <a href="{{ url_for('descargar') }}" class="btn-download">Descargar resultado</a>
+      <br><br>
+      <a href="{{ url_for('index') }}" class="btn-secondary">Regresar al inicio</a>
+    </section>
+  </main>
 
   <footer class="dashboard-footer">
-    Sistema Oficial del Órgano de Fiscalización Superior
+    Sistema Oficial del Órgano de Fiscalización Superior del Estado de Tlaxcala
   </footer>
 </body>
 </html>

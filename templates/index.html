@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
+  <!-- =========================================================
+       HEADER
+       ========================================================= -->
   <header class="header-fixed">
     <div class="header-content">
       <img src="{{ url_for('static', filename='img/ofs_logo.png') }}" alt="Logo OFS" class="ofs-logo">
@@ -17,39 +20,54 @@
     </div>
   </header>
 
+  <!-- =========================================================
+       MAIN
+       ========================================================= -->
   <main class="main-content">
     <section class="tool-card">
       <h2>Conversión en tiempo real</h2>
       <p>Escribe un número para ver su versión en texto con formato oficial.</p>
 
-      <input type="number" id="numero" placeholder="Ejemplo: 1523.45" oninput="convertirNumero()">
-      <p id="resultadoTexto" style="margin-top:1rem; font-weight:600; color:#1e3a8a;"></p>
+      <div class="input-group">
+        <input type="number" id="numero" placeholder="Ejemplo: 1523.45" oninput="convertirNumero()">
+        <div id="spinner" class="loader" hidden></div>
+      </div>
 
-      <hr style="margin:2rem 0; border:none; border-top:1px solid #e5e7eb;">
+      <p id="resultadoTexto" class="resultado"></p>
+
+      <hr class="divider">
 
       <h2>O cargar archivo Excel</h2>
-      <p>Se acepta columna: <strong>Número, Numero, numero, NUMERO, Num, num</strong>.</p>
+      <p>Se acepta columna llamada <strong>Número, Numero, numero, NUMERO o Num</strong>.</p>
 
       <form id="excelForm" enctype="multipart/form-data">
         <input type="file" name="archivo" accept=".xlsx" required>
         <button type="submit">Procesar y descargar</button>
       </form>
 
-      <p id="statusMessage" style="margin-top:1rem;"></p>
+      <p id="statusMessage" class="status"></p>
     </section>
   </main>
 
+  <!-- =========================================================
+       FOOTER
+       ========================================================= -->
   <footer class="dashboard-footer">
     © Órgano de Fiscalización Superior del Estado de Tlaxcala — Sistema LexNum
   </footer>
 
+  <!-- =========================================================
+       SCRIPTS
+       ========================================================= -->
   <script>
+    // Conversión numérica instantánea
     async function convertirNumero() {
       const numero = document.getElementById("numero").value.trim();
       const out = document.getElementById("resultadoTexto");
+      const loader = document.getElementById("spinner");
       out.textContent = "";
-
       if (!numero) return;
+      loader.hidden = false;
 
       try {
         const r = await fetch("/convertir_texto", {
@@ -61,9 +79,12 @@
         out.textContent = data.texto || "Error al convertir.";
       } catch {
         out.textContent = "Error de conexión.";
+      } finally {
+        loader.hidden = true;
       }
     }
 
+    // Procesar archivo Excel y descargar resultado
     document.getElementById("excelForm").addEventListener("submit", async (e) => {
       e.preventDefault();
       const status = document.getElementById("statusMessage");
@@ -72,18 +93,14 @@
       try {
         const fd = new FormData(e.target);
         const resp = await fetch("/convertir_excel", { method: "POST", body: fd });
-        const ctype = resp.headers.get("Content-Type") || "";
 
         if (!resp.ok) {
-          if (ctype.includes("application/json")) {
-            const data = await resp.json();
-            status.textContent = data.error || "Error al procesar.";
-          } else {
-            status.textContent = "Error al procesar.";
-          }
+          const data = await resp.json().catch(() => ({}));
+          status.textContent = data.error || "Error al procesar.";
           return;
         }
 
+        // Descargar archivo directamente
         const blob = await resp.blob();
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
@@ -93,6 +110,7 @@
         a.click();
         a.remove();
         URL.revokeObjectURL(url);
+
         status.textContent = "Archivo generado y descargado.";
       } catch {
         status.textContent = "Error de red.";

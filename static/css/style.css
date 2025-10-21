@@ -1,6 +1,6 @@
 /* =========================================================
    LEXNUM - OFS TLAXCALA
-   Estilo institucional moderno, limpio y responsivo
+   Estilo institucional profesional, limpio y responsivo
    ========================================================= */
 
 :root {
@@ -8,6 +8,7 @@
   --color-primary-light: #2563eb;
   --color-accent: #3b82f6;
   --color-success: #16a34a;
+  --color-danger: #dc2626;
   --color-bg: #f3f4f6;
   --color-surface: #ffffff;
   --color-text: #0f172a;
@@ -95,7 +96,7 @@ body {
 }
 
 /* =========================================================
-   MAIN
+   MAIN CONTENT
    ========================================================= */
 .main-content {
   display: flex;
@@ -142,9 +143,23 @@ body {
   line-height: 1.5;
 }
 
+/* Divider */
+.divider {
+  margin: 2rem 0;
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
 /* =========================================================
-   INPUT NUMÉRICO
+   INPUTS
    ========================================================= */
+.input-group {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 input[type="number"] {
   width: 100%;
   max-width: 340px;
@@ -164,9 +179,6 @@ input[type="number"]:focus {
   background: #fff;
 }
 
-/* =========================================================
-   INPUT FILE
-   ========================================================= */
 input[type="file"] {
   width: 100%;
   max-width: 340px;
@@ -204,9 +216,10 @@ input[type="file"]::file-selector-button:hover {
 }
 
 /* =========================================================
-   BOTONES
+   BUTTONS
    ========================================================= */
-button {
+button, .btn-download, .btn-secondary {
+  display: inline-block;
   background: var(--color-primary-light);
   color: #fff;
   border: none;
@@ -217,38 +230,51 @@ button {
   transition: var(--transition);
   box-shadow: var(--shadow);
   font-size: 1rem;
+  text-decoration: none;
 }
 
-button:hover {
+button:hover, .btn-download:hover, .btn-secondary:hover {
   background: var(--color-primary);
   transform: translateY(-2px);
 }
 
-/* =========================================================
-   BOTÓN COPIAR TEXTO
-   ========================================================= */
-#copiarBtn {
+.btn-download {
+  background: var(--color-success);
+}
+
+.btn-download:hover {
+  background: #15803d;
+}
+
+.btn-secondary {
   background: var(--color-accent);
-  color: #fff;
-  border: none;
-  border-radius: var(--radius);
-  padding: 0.6rem 1.4rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: var(--transition);
-  margin-top: 0.5rem;
-  box-shadow: var(--shadow);
 }
 
-#copiarBtn:hover {
-  background: var(--color-primary);
-  transform: translateY(-2px);
+.btn-secondary:hover {
+  background: var(--color-primary-light);
 }
 
 /* =========================================================
-   RESULTADO EN TIEMPO REAL
+   LOADER
    ========================================================= */
-#resultadoTexto {
+.loader {
+  border: 4px solid #e5e7eb;
+  border-top: 4px solid var(--color-accent);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  animation: spin 1s linear infinite;
+  margin-left: 0.8rem;
+}
+
+@keyframes spin {
+  100% { transform: rotate(360deg); }
+}
+
+/* =========================================================
+   RESULT TEXT
+   ========================================================= */
+.resultado {
   font-size: 1.05rem;
   color: var(--color-primary);
   background: rgba(37, 99, 235, 0.08);
@@ -262,16 +288,14 @@ button:hover {
   min-height: 1.5em;
 }
 
-#copiadoMsg {
-  color: var(--color-success);
-  font-weight: 600;
+/* =========================================================
+   STATUS MESSAGE
+   ========================================================= */
+.status {
+  color: var(--color-accent);
+  font-weight: 500;
   font-size: 0.95rem;
-  animation: fadeIn 0.3s ease;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(5px); }
-  to { opacity: 1; transform: translateY(0); }
+  margin-top: 1rem;
 }
 
 /* =========================================================
@@ -288,7 +312,7 @@ button:hover {
 }
 
 /* =========================================================
-   RESPONSIVE
+   RESPONSIVE DESIGN
    ========================================================= */
 @media (max-width: 768px) {
   .header-text h1 {
@@ -308,5 +332,20 @@ button:hover {
   #resultadoTexto {
     font-size: 1rem;
   }
+
+  .btn-download, .btn-secondary {
+    width: 100%;
+    padding: 0.9rem 1rem;
+  }
+}
+
+/* =========================================================
+   ACCESSIBILITY FOCUS STATES
+   ========================================================= */
+button:focus,
+input:focus,
+a:focus {
+  outline: 3px solid rgba(37, 99, 235, 0.4);
+  outline-offset: 3px;
 }
 
