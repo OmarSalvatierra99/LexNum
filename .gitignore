@@ -12,18 +12,18 @@ venv/
 env/
 .venv/
 
-# Flask instance and config
+# Flask instance and databases
 instance/
 *.db
 *.sqlite
 *.sqlite3
-config.py
-settings.py
 
 # Environment variables
 .env
-.env.*
+.env.local
+.env.*.local
 *.env
+!.env.example
 
 # Logs
 *.log

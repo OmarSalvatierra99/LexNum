@@ -340,12 +340,40 @@ button:hover, .btn-download:hover, .btn-secondary:hover {
 }
 
 /* =========================================================
-   ACCESSIBILITY FOCUS STATES
+   ACCESSIBILITY
    ========================================================= */
+
+/* Visually hidden - oculta elementos visualmente pero los mantiene accesibles para lectores de pantalla */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Estados de foco para accesibilidad */
 button:focus,
 input:focus,
 a:focus {
   outline: 3px solid rgba(37, 99, 235, 0.4);
   outline-offset: 3px;
+}
+
+/* Estilos para estados de status */
+.status-success {
+  color: var(--color-success);
+}
+
+.status-error {
+  color: var(--color-danger);
+}
+
+.status-info {
+  color: var(--color-accent);
 }
 
